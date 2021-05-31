@@ -18,3 +18,15 @@
     </form>
 </body>
 </html>
+<?php
+public static function insertarPersona($nombre,$apellido,$telefono,$fecha,$edad,$email){
+    $p = new PersonaModelo();
+    $p -> nombre = $nombre
+    $p -> apellido = $apellido
+    $p -> telefono = $telefono
+    $p -> fecha = $fecha
+    $p -> edad = $edad
+    $p -> email = $email
+    $p -> return guardar();
+    
+}
