@@ -1,31 +1,37 @@
 <?php
 
-public $nombre;
-public $apellido;
-public $telefono
-public $fecha;
-public $edad;
-public $email;
+$base=mysqli_connect("localhost", "root", "", "parcial");
+
 
 public static function insertarPersona($nombre,$apellido,$telefono,$fecha,$edad,$email){
-    $p = new PersonaModelo();
-    $p -> nombre = $nombre
-    $p -> apellido = $apellido
-    $p -> telefono = $telefono
-    $p -> fecha = $fecha
-    $p -> edad = $edad
-    $p -> email = $email
-    $p -> return guardar();
+   
+    $nombre = $_POST['nombre'];
+    $apellido = $_POST['apellido'];
+    $telefono = $_POST['telefono'];
+    $fecha = $_POST['fecha'];
+    $edad = $_POST['edad'];
+    $email = $_POST['email'];
+    guardar();
     
 }
 public function guardar() {
     $sql = "INSERT INTO persona(nombre,apellido,telefono,fecha,edad,email) VALUES (
-        '{$nombre -> nombre}'
-        '{$apellido -> apellido}'
-        '{$telefono -> telefono}'
-        '{$fecha -> fecha}'
-        '{$edad -> edad}'
-        '{$email -> email}'
-        )";
-         "
+        '$nombre', '$apellido', '$telefono', '$fecha', '$edad', '$email')";
+mysqli_query($base,$sql);
 }
+public function error() {
+    if($_SERVER['REQUEST_METHOD'] === 'GET'){
+        header("HTTP/1.1 500 Internal server error");
+        die("Internal server error");
+        }
+    }
+public function agregadoCorrectamente() {
+    echo "Persona Agregada correctamente"
+}
+
+    function validarCampos($formulario){
+        if($formulario['nombre'] === "" || $formulario['apellido'] === "" || $telefono['telefono'] || $fecha['fecha'] || $formulario['edad'] === "" || $formulario['email'] === ""){           
+            return error();
+        }
+        return agregadoCorrectamente();
+    }
